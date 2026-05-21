@@ -1,85 +1,95 @@
-# Katara: AI Data Management Platform
+# Katara AI
 
-## Overview
+**Compliance-native RAG infrastructure for teams deploying AI in regulated environments.**
 
-Katara is the ultimate layer between Large Language Models (LLMs) and your applications, empowering developers to build intelligent, agentic workflows without the hassle of managing backend infrastructure. As the #1 AI Data Management Platform, Katara hosts and runs your RAG (Retrieval-Augmented Generation) pipelines, chunking, embedding, vector databases, authentication, monitoring, and more—allowing you to ship AI agents faster.
+Katara provides the governed data access layer that enterprise AI deployments require — 
+chunk-level access controls, tamper-evident audit logging, authenticated MCP, and data 
+lineage — built for teams that need to govern, audit, and defend what their AI systems 
+access.
 
-Our mission? Get you from idea to production in minutes, not months. Whether you're a solo developer, a small team, or scaling to enterprise, Katara's AI-managed backend handles the heavy lifting: data ingestion from any source, cost optimization, compliance scanning, and production-grade features from day one. No vendor lock-in—export everything with one click.
+---
 
-**Why Katara?** In a world where AI is transforming businesses, developers waste too much time on infrastructure. Katara's multi-agent architecture provides smart system for data handling, vectorization, compliance, security, and more. Integrate seamlessly with your IDE (like Cursor or Zed) via Model Context Protocol, and let our agents build your backend while you focus on innovation.
+## What Katara is
 
-We're on a rocket ship, join today and be part of the future of AI development. [Sign up for access](https://app.katara.ai) or chat with us on X [@KataraAI](https://x.com/KataraAI).
+Most RAG deployments retrieve data and generate responses without enforcing who is 
+authorised to see what — and without producing a record of what was accessed, by whom, 
+and when. That works in a sandbox. It does not work in a regulated environment where 
+audit trails are a legal obligation and cross-dataset data assembly is a compliance risk.
 
-## Key Features
+Katara enforces access controls at the retrieval layer — before data enters the LLM 
+context window — and produces a tamper-evident record of every query, every dataset 
+accessed, and every user action. The same prompt returns different answers for different 
+users based on their permission level. Every interaction is logged, exportable, and 
+defensible.
 
-- **Instant Backend Setup**: Connect your IDE, and Katara reads your codebase to auto-provision vector DBs, RAG pipelines, Chunking, auth, and monitoring. No manual config—done in minutes.
-- **Universal Data Ingestion**: Upload any dataset from any source (files, web, github, notion, google drive, APIs, databases). Never worry about chunking, vectorization, or refresh—Katara handles it all.
-- **Cost Optimization**: Real-time token tracking, smart caching, and throttling to prevent cost overruns.
-- **Zero Lock-In**: One-click export of data, vector stores, configs, and infra-as-code. Move to any provider without hassle.
-- **Production-Grade Out of the Box**: 
-  - Staging/production environments
-  - Rate limiting & secrets management
-  - One-click rollback & version control
-  - Automatic upgrades (auto or manual policies)
-  - Full observability with tracing, metrics, and vectorized logs queryable via Model Context Protocol (MCP)
-- **LLM-Agnostic**: Use any model—GPT-5, Claude 3.7, Gemini 1.5 Pro, Grok 3, Llama, Mistral, or your custom fine-tuned ones. A/B test and version models effortlessly.
-- **Built-in Safety & Compliance**: Our Data Security agent scans for PII, PCI, health data, or EU regulations. Proactive alerts ensure compliant, secure AI.
-- **Agent Orchestration**: Design multi-agent workflows with dependencies, pub/sub communication, and templates. Monitor decision tracing and performance.
-- **Developer-First Experience**: Chat with the the data agent directly in your IDE. Dashboards for health, usage, recommendations, and more. APIs, SDKs, and webhooks for integrations.
+---
 
-For a deep dive into RAG's power, check our blog: [The Rise of RAG as a Service: Supercharging AI with Real-Time Knowledge](https://www.katara.ai/blog-post/the-rise-of-rag-as-a-service-supercharging-ai-with-real-time-knowledge).
+## Core capabilities
 
-## Why Developers Love Katara
+- **Chunk-level RBAC** — per-user, per-group permission enforcement at retrieval time, 
+  not at the application layer
+- **Authenticated MCP** — OAuth 2.1 implementation of the Model Context Protocol; 
+  every agent connection is identity-verified
+- **Tamper-evident audit logging** — immutable record of every query, dataset access, 
+  chunk retrieved, and user action; exportable for regulatory examination
+- **Collection isolation** — logical separation of datasets with configurable sharing 
+  rules; the same query returns different results based on access level
+- **Data lineage** — traceable provenance for every piece of data in the system
+- **LLM and cloud agnostic** — works with any model provider, deployable in any GCP 
+  region; on-prem deployment on the roadmap
 
-- **Ship Faster**: New devs build their first real agent this week, not next quarter.
-- **Predictable Costs**: Track usage, get alerts, and optimize—perfect for bootstrapped teams.
-- **Enterprise-Ready**: Multi-tenant isolation, RBAC, backups, disaster recovery, and analytics for scaling.
-- **Community-Driven**: Templates, marketplaces for agents, and best practices to accelerate your build.
+---
 
-Real-world applications: Customer support bots, enterprise search, financial analysis, healthcare summaries, e-commerce recommendations—and more.
+## Who it is for
 
-## Getting Started
+Teams in regulated industries — financial services, healthcare, legal, education, 
+government — deploying AI across sensitive datasets where access controls, audit trails, 
+and regulatory compliance are requirements, not nice-to-haves.
 
-1. **Sign Up**: Head to [katara.ai](https://app.katara.ai) and you'll onboard you fast!
-2. **Connect Your IDE**: Use MCP for Cursor, Zed, or other compatible editors. Katara extracts project context automatically.
-3. **Chat & Build**: Interact with the Technical Project Manager agent via chat. Upload data samples, set goals, and approve recommendations.
-4. **Deploy & Iterate**: Watch your backend deploy. Monitor via dashboards, control your data, and export anytime.
+Specifically useful if your AI system:
+- Evaluates, scores, or ranks people in a consequential context
+- Processes sensitive documents across users with different access rights
+- Must demonstrate what data was accessed and why to a regulator or auditor
+- Is subject to EU AI Act, DORA, NIST AI RMF, or GDPR obligations
 
-**Quick Example**:
-- In your IDE: "Optimize my RAG latency please" → Katara suggests chunking strategies, model switches, and deploys instantly.
+---
 
-For detailed user flows, see our [docs](https://docs.katara.ai)
+## Integrations
 
-## Installation & Usage
+**n8n** — the Katara node is live in the n8n community node library. Connect governed 
+RAG collections to any n8n workflow. [katara-ai-inc/n8n-nodes-katara](https://github.com/katara-ai-inc/n8n-nodes-katara)
 
-Katara is a managed service—no local install needed. Use our MCP for integration:
+**MCP** — Katara's authenticated MCP server connects any MCP-compatible agent framework 
+to governed collections. Endpoint: `mcp.katara.ai`
 
-```(https://mcp.katara.ai/mcp/)
-```
+LangChain and LangGraph integrations are on the roadmap.
 
-For more here: https://docs.katara.ai/about/mcp-server/mcp-server
+---
 
-## Roadmap
+## Pioneer Programme
 
-We're prioritizing:
-- ACP (Agent Communication Protocol)
-- SDK
-- Webhooks
+We are currently running a structured six-month engagement for two founding design 
+partners. The programme combines platform access, a full EU AI Act readiness assessment 
+with legal review, and hands-on implementation support from the founding team.
 
-## Contributing
+[pioneer.katara.ai](https://pioneer.katara.ai/)
 
-We're building in private (for now) BUT we want to hear from you, what functionality and capabilities. email us hello@katara.ai 
+---
 
-## License
+## Documentation
 
-Katara's core platform is proprietary.
+[docs.katara.ai](https://docs.katara.ai)
 
-## Contact & Community
+---
+
+## Contact
 
 - **Website**: [katara.ai](https://katara.ai)
-- **Blog**: [Latest Posts](https://www.katara.ai/blog-post/the-rise-of-rag-as-a-service-supercharging-ai-with-real-time-knowledge)
-- **X/Twitter**: [@KataraAI](https://x.com/KataraAI)
 - **Email**: hello@katara.ai
-- **Discord**: [Join our community] (https://discord.com/invite/9zSDSVWP2X)
+- **LinkedIn**: [company/katara-ai](https://www.linkedin.com/company/katara-ai/)
+
+---
+
+*Katara AI is based in Barcelona, Spain. Delaware C-corp.*
 
 Built by AI enthusiasts. Let's supercharge your AI journey!
